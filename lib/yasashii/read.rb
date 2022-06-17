@@ -14,10 +14,12 @@ module Yasashii
       offset = query_hash.delete(:offset)
       filter = query_hash.delete(:filter)
 
-      reflection_queries = build_reflection_queries(filter)
-      query = filter.empty? ? model.all : model.where(build_query(filter))
-      reflection_queries.each do |ref, q|
-        query = query.joins(ref).merge(q)
+      reflection_queries = build_reflection_queries(filter) if filter
+      query = filter.present? ? model.where(build_query(filter)) : model.all
+      if filter
+        reflection_queries.each do |ref, q|
+          query = query.joins(ref).merge(q)
+        end
       end
 
       query = query.limit(limit) if limit
@@ -75,9 +77,6 @@ module Yasashii
         else
           acc.and(table[attribute].send(predicate, value))
         end
-      rescue ArgumentError => e
-        binding.pry
-        e
       end
     end
 

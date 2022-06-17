@@ -8,6 +8,7 @@ class TestYasashii < Minitest::Test
   end
 
   def test_it_does_something_useful
-    assert false
+    create(:user)
+    assert User.count > 0
   end
 end
