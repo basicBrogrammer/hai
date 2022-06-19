@@ -1,0 +1,30 @@
+- [/] read(single | multiple)
+  - [x] Single or query
+  - [x] limit
+  - [x] offset
+  - [/] multiple ors?
+  - [x] relationships
+- [] create
+- [] update
+- [] destroy
+- [] geolocation
+------
+- [] graphql
+  - [ ] Types
+    - [/] models
+    - [ ] Arel
+    - [ ] inputs
+  - [/] read
+    - [/] relationships
+    - [ ] read
+    - [ ] list
+  - [] create
+  - [] update
+  - [] destroy
+  - [] private attrs
+  - [] allowed actions
+------
+- [/] gemify
+
+## Post gem
+- [] Multiple or queries

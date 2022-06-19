@@ -44,12 +44,15 @@ class YasashiiReadTest < Minitest::Test
 
   def test_list_handles_multiple_ors
     assert_equal [@users.first, @users[3], @users[8]],
-                 Yasashii::Read.new(User).list(filter: {
-                                                 name: { eq: @users.first.name },
-                                                 or: {
-                                                   name: { eq: @users[3].name }, or: { name: { eq: @users[8].name } }
-                                                 }
-                                               })
+                 Yasashii::Read.new(User).list(
+                   filter: {
+                     name: { eq: @users.first.name },
+                     or: [
+                       { name: { eq: @users[3].name } },
+                       { name: { eq: @users[8].name } }
+                     ]
+                   }
+                 )
   end
 
   def test_list_handles_has_many_relationships

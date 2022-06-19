@@ -23,6 +23,7 @@ GEM
     concurrent-ruby (1.1.10)
     factory_bot (6.2.1)
       activesupport (>= 5.0.0)
+    graphql (2.0.9)
     i18n (1.10.0)
       concurrent-ruby (~> 1.0)
     method_source (1.0.0)
@@ -60,6 +61,7 @@ PLATFORMS
 DEPENDENCIES
   activesupport (~> 7.0)
   factory_bot
+  graphql
   minitest (~> 5.0)
   pry
   rake (~> 13.0)

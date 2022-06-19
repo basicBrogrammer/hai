@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "../.."
+		},
+		{
+			"path": "../../../../mbgr/mtb_group_rides_rails"
+		},
+		{
+			"path": "../../../../mbgr/mbgr_expo"
+		}
+	],
+	"settings": {}
+}
