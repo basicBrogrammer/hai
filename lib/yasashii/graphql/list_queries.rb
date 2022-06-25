@@ -11,7 +11,7 @@ module Yasashii
         def define_filter_type(model)
           filter_klass = Class.new(::GraphQL::Schema::InputObject)
           model.attribute_types.each do |attr, type|
-            filter_klass.send(:argument, attr, TYPE_CAST[type.class], required: false)
+            filter_klass.send(:argument, attr, AREL_TYPE_CAST[type.class], required: false)
           end
           Object.const_set "#{model}FilterInputType", filter_klass
         end

@@ -9,8 +9,8 @@
   - [x] offset
   - [x] multiple ors?
   - [x] relationships
-- [] create
-  - [] attributes
+- [/] create
+  - [/] attributes
   - [] required or not
 - [] update
   - [] id + attributes
@@ -29,8 +29,10 @@
     - [/] read
     - [/] list
     - [/] relationships
-  - [] create
+  - [/] create
+    - [ ] callback for current_user/context
   - [] update
+    - [ ] callback for current_user/context
   - [] destroy
 ------
 - [/] gemify

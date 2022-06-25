@@ -11,7 +11,7 @@ module Yasashii
           query_type.field("read_#{model.name.downcase}", "Types::#{model}Type".constantize) do
             query_type.description("List a single #{model}.")
             model.attribute_types.each do |attr, type|
-              argument(attr, Yasashii::GraphQL::TYPE_CAST[type.class], required: false)
+              argument(attr, Yasashii::GraphQL::AREL_TYPE_CAST[type.class], required: false)
             end
           end
         end

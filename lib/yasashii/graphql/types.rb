@@ -31,6 +31,16 @@ module Yasashii
               klass.send(:field, name, "Types::#{ref.klass}Type")
             end
           end
+
+          # input objects
+          klass = Class.new(::Types::BaseInputObject)
+          klass.description("Attributes for creating or updating a #{model}.")
+          model.attribute_types.each do |attr, type|
+            next if %w[id created_at updated_at].include?(attr)
+
+            klass.argument(attr, Yasashii::GraphQL::TYPE_CAST[type.class], required: false)
+          end
+          ::Types.const_set "#{model}Attributes", klass
         end
       end
     end
