@@ -1,8 +1,8 @@
-require "yasashii/types/arel/int_input_type"
-require "yasashii/types/arel/string_input_type"
-require "yasashii/types/arel/datetime_input_type"
+require "hai/types/arel/int_input_type"
+require "hai/types/arel/string_input_type"
+require "hai/types/arel/datetime_input_type"
 
-module Yasashii
+module Hai
   module GraphQL
     module Types
       module Arel; end
@@ -38,7 +38,7 @@ module Yasashii
           model.attribute_types.each do |attr, type|
             next if %w[id created_at updated_at].include?(attr)
 
-            klass.argument(attr, Yasashii::GraphQL::TYPE_CAST[type.class], required: false)
+            klass.argument(attr, Hai::GraphQL::TYPE_CAST[type.class], required: false)
           end
           ::Types.const_set "#{model}Attributes", klass
         end

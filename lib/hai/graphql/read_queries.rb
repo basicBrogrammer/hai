@@ -1,4 +1,4 @@
-module Yasashii
+module Hai
   module GraphQL
     class ReadQueries
       class << self
@@ -11,14 +11,14 @@ module Yasashii
           query_type.field("read_#{model.name.downcase}", "Types::#{model}Type".constantize) do
             query_type.description("List a single #{model}.")
             model.attribute_types.each do |attr, type|
-              argument(attr, Yasashii::GraphQL::AREL_TYPE_CAST[type.class], required: false)
+              argument(attr, Hai::GraphQL::AREL_TYPE_CAST[type.class], required: false)
             end
           end
         end
 
         def define_read_method(query_type, model)
           query_type.define_method("read_#{model.name.downcase}") do |**args|
-            Yasashii::Read.new(model).read(args.transform_values(&:to_h))
+            Hai::Read.new(model).read(args.transform_values(&:to_h))
           end
         end
       end

@@ -1,4 +1,4 @@
-module Yasashii
+module Hai
   module GraphQL
     class CreateMutations
       class << self
@@ -16,7 +16,7 @@ module Yasashii
 
         def define_create_method(mutation_type, model)
           mutation_type.define_method("create_#{model.name.downcase}") do |attributes:|
-            Yasashii::Create.new(model).execute(**attributes.to_h)
+            Hai::Create.new(model).execute(**attributes.to_h)
           end
         end
       end

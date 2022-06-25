@@ -1,4 +1,4 @@
-module Yasashii
+module Hai
   class Read
     attr_accessor :model
     attr_reader :table

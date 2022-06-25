@@ -1,15 +1,15 @@
-module Yasashii
+module Hai
   class Create
     attr_accessor :model
     attr_reader :table
 
     def initialize(model)
       @model = model
-      @table = model.arel_table
     end
 
-    def execute(**attrs)
-      model.create(**attrs)
+    def execute(id:, attributes:)
+      record = model.find(id)
+      record.update(**attributes)
     end
   end
 end

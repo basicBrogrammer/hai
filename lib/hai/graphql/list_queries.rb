@@ -1,4 +1,4 @@
-module Yasashii
+module Hai
   module GraphQL
     class ListQueries
       class << self
@@ -27,7 +27,7 @@ module Yasashii
 
         def define_list_method(query_type, model)
           query_type.define_method("list_#{model.name.downcase}") do |**args|
-            Yasashii::Read.new(model).list(args.transform_values { |v| v.is_a?(Integer) ? v : v.to_h })
+            Hai::Read.new(model).list(args.transform_values { |v| v.is_a?(Integer) ? v : v.to_h })
           end
         end
       end

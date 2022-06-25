@@ -1,16 +1,16 @@
 # frozen_string_literal: true
 
-require_relative "lib/yasashii/version"
+require_relative "lib/hai/version"
 
 Gem::Specification.new do |spec|
-  spec.name = "yasashii"
-  spec.version = Yasashii::VERSION
+  spec.name = "hai"
+  spec.version = Hai::VERSION
   spec.authors = ["basicbrogrammer"]
   spec.email = ["jcward10@gmail.com"]
 
   spec.summary = "A CRUD api built on ActiveRecord"
   spec.description = "Will finish later."
-  spec.homepage = "https://github.com/basicbrogrammer/yasashii"
+  spec.homepage = "https://github.com/basicbrogrammer/hai"
   spec.license = "MIT"
   spec.required_ruby_version = ">= 2.6.0"
 

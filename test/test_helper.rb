@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 $LOAD_PATH.unshift File.expand_path("../lib", __dir__)
-require "yasashii"
+require "hai"
 
 require "minitest/autorun"
 require "factory_bot"

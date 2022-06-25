@@ -1,4 +1,4 @@
-module Yasashii
+module Hai
   module GraphQL
     module Types
       module Arel
