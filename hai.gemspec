@@ -6,7 +6,7 @@ Gem::Specification.new do |spec|
   spec.name = "hai"
   spec.version = Hai::VERSION
   spec.authors = ["basicbrogrammer"]
-  spec.email = ["jcward10@gmail.com"]
+  spec.email = ["basicbrogrammer@pm.me"]
 
   spec.summary = "A CRUD api built on ActiveRecord"
   spec.description = "Will finish later."

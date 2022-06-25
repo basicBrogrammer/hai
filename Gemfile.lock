@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    yasashii (0.0.1)
+    hai (0.0.1)
       activerecord (~> 7.0)
       pg (~> 1.3.5)
 
@@ -62,11 +62,11 @@ DEPENDENCIES
   activesupport (~> 7.0)
   factory_bot
   graphql
+  hai!
   minitest (~> 5.0)
   pry
   rake (~> 13.0)
   rubocop (~> 1.21)
-  yasashii!
 
 BUNDLED WITH
    2.3.5
