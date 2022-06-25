@@ -1,30 +1,42 @@
+### x - tested
+### / - untested
+
+------------------------------------------
+
 - [/] read(single | multiple)
   - [x] Single or query
   - [x] limit
   - [x] offset
-  - [/] multiple ors?
+  - [x] multiple ors?
   - [x] relationships
 - [] create
+  - [] attributes
+  - [] required or not
 - [] update
+  - [] id + attributes
 - [] destroy
-- [] geolocation
-------
+  - [] id
+  - [] authorization [current_user]
+
+------------------------------------------
+
 - [] graphql
-  - [ ] Types
+  - [/] Types
     - [/] models
-    - [ ] Arel
-    - [ ] inputs
+    - [/] Arel
+    - [/] inputs
   - [/] read
+    - [/] read
+    - [/] list
     - [/] relationships
-    - [ ] read
-    - [ ] list
   - [] create
   - [] update
   - [] destroy
-  - [] private attrs
-  - [] allowed actions
 ------
 - [/] gemify
 
 ## Post gem
 - [] Multiple or queries
+- [] geolocation
+- [] private attrs
+- [] allowed actions

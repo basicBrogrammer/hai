@@ -8,6 +8,9 @@
 		},
 		{
 			"path": "../../../../mbgr/mbgr_expo"
+		},
+		{
+			"path": "../../../../mbgr/mtb_group_rides"
 		}
 	],
 	"settings": {}
