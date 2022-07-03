@@ -1,6 +1,7 @@
 require "hai/graphql/read_queries"
 require "hai/graphql/list_queries"
 require "hai/graphql/create_mutations"
+require "hai/graphql/update_mutations"
 require "hai/types/arel/int_input_type"
 require "hai/types/arel/string_input_type"
 require "hai/types/arel/datetime_input_type"
@@ -29,6 +30,7 @@ module Hai
 
       def yasashii_mutation(model)
         Hai::GraphQL::CreateMutations.add(self, model)
+        Hai::GraphQL::UpdateMutations.add(self, model)
       end
     end
   end

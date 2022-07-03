@@ -1,5 +1,5 @@
 module Hai
-  class Create
+  class Update
     attr_accessor :model
     attr_reader :table
 
@@ -10,6 +10,7 @@ module Hai
     def execute(id:, attributes:)
       record = model.find(id)
       record.update(**attributes)
+      record
     end
   end
 end

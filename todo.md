@@ -31,9 +31,10 @@
     - [/] relationships
   - [/] create
     - [ ] callback for current_user/context
-  - [] update
+  - [/] update
     - [ ] callback for current_user/context
   - [] destroy
+  - [] subscriptions
 ------
 - [/] gemify
 
