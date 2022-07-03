@@ -33,10 +33,11 @@
     - [ ] callback for current_user/context
   - [/] update
     - [ ] callback for current_user/context
-  - [] destroy
+  - [/] destroy
   - [] subscriptions
 ------
-- [/] gemify
+- [x] gemify
+- [] automate release
 
 ## Post gem
 - [] Multiple or queries
