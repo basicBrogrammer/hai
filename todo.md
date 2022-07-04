@@ -12,11 +12,11 @@
 - [/] create
   - [/] attributes
   - [] required or not
-- [] update
-  - [] id + attributes
-- [] destroy
-  - [] id
-  - [] authorization [current_user]
+- [/] update
+  - [/] id + attributes
+- [/] destroy
+  - [/] id
+  - [/] authorization [current_user]
 
 ------------------------------------------
 
@@ -30,9 +30,9 @@
     - [/] list
     - [/] relationships
   - [/] create
-    - [ ] callback for current_user/context
+    - [/] callback for current_user/context
   - [/] update
-    - [ ] callback for current_user/context
+    - [/] callback for policy
   - [/] destroy
   - [] subscriptions
 ------
