@@ -66,7 +66,10 @@ module Hai
     end
 
     def add_sub_query(query, or_branch)
-      query.or(build_query(or_branch))
+      or_branch.each do |q|
+        query = query.or(where_clause(model.arel_table, q))
+      end
+      query
     end
 
     def where_clause(table, query_hash)

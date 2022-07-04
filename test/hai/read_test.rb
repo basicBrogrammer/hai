@@ -1,7 +1,7 @@
 require "test_helper"
 require "hai/read"
 
-class YasashiiReadTest < Minitest::Test
+class HaiReadTest < Minitest::Test
   def setup
     @users = create_list(:user, 10)
     @ride, = create_list(:ride, 2, user: @users.first)
@@ -22,7 +22,7 @@ class YasashiiReadTest < Minitest::Test
   def test_list_handles_or_queries
     assert_equal [@users.first, @users.third],
                  Hai::Read.new(User).list(filter: { name: { eq: @users.first.name },
-                                                         or: { name: { eq: @users.third.name } } })
+                                                    or: [{ name: { eq: @users.third.name } }] })
   end
 
   def test_list_handles_query_with_limit

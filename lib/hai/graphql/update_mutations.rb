@@ -1,4 +1,3 @@
-
 module Hai
   module GraphQL
     class UpdateMutations
