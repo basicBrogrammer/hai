@@ -1,29 +1,19 @@
 module Hai
   class Read
     attr_accessor :model
-    attr_reader :table
+    attr_reader :table, :context
 
-    def initialize(model)
+    def initialize(model, context)
       @model = model
+      @context = context
       @table = model.arel_table
     end
 
     # return [] or ActiveRecord::Relationship
     def list(query_hash)
-      limit = query_hash.delete(:limit)
-      offset = query_hash.delete(:offset)
-      filter = query_hash.delete(:filter)
-
-      reflection_queries = build_reflection_queries(filter) if filter
-      query = filter.present? ? model.where(build_query(filter)) : model.all
-      if filter
-        reflection_queries.each do |ref, q|
-          query = query.joins(ref).merge(q)
-        end
-      end
-
-      query = query.limit(limit) if limit
-      query = query.offset(offset) if offset
+      query = build_filter(query_hash.delete(:filter))
+      query = query.limit(query_hash[:limit]) if query_hash[:limit]
+      query = query.offset(query_hash[:offset]) if query_hash[:offset]
       query
     end
 
@@ -56,6 +46,20 @@ module Hai
         q_hash = query_hash.delete(ref)
         acc[ref] = info.klass.where(where_clause(info.klass.arel_table, q_hash)) if q_hash
       end.compact
+    end
+
+    def build_filter(filter_hash)
+      return model.all unless filter_hash.present?
+
+      reflection_queries = build_reflection_queries(filter_hash)
+      # build_reflection_queries mutates the filter_hash
+      query = filter_hash.present? ? model.where(build_query(filter_hash)) : model.all
+
+      reflection_queries.each do |ref, q|
+        query = query.joins(ref).merge(q)
+      end
+
+      query
     end
 
     def build_query(query_hash)
