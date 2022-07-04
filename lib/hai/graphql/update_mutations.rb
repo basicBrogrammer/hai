@@ -17,7 +17,7 @@ module Hai
 
         def define_create_method(mutation_type, model)
           mutation_type.define_method("update_#{model.name.downcase}") do |id:, attributes:|
-            Hai::Update.new(model).execute(id: id, attributes: attributes)
+            Hai::Update.new(model, context).execute(id: id, attributes: attributes)
           end
         end
       end

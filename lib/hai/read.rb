@@ -29,7 +29,9 @@ module Hai
 
     # return nil or model
     def read(query_hash)
-      model.find_by(build_query(query_hash))
+      model.find_by(build_query(query_hash[:filter])).tap do |record|
+        raise UnauthorizedError if record.respond_to?(:check_hai_policy) && !record.check_hai_policy(:read, context)
+      end
     end
 
     private
