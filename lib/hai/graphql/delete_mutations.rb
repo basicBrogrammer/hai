@@ -16,7 +16,7 @@ module Hai
 
         def define_create_method(mutation_type, model)
           mutation_type.define_method("delete_#{model.name.downcase}") do |id:|
-            Hai::Delete.new(model).execute(id: id)
+            Hai::Delete.new(model, context).execute(id: id)
           end
         end
       end

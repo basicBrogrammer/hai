@@ -26,6 +26,17 @@ class HaiReadTest < Minitest::Test
                                          or: [{ name: { eq: @users.third.name } }] })
   end
 
+  def test_list_handles_or_queries_for_reflections
+    expected = [@users.first, @users.third]
+    actual = @subject.list(filter: {
+                             name: { eq: @users.third.name },
+                             or: [
+                               { rides: { title: { eq: @ride.title } } }
+                             ]
+                           })
+    assert_equal expected, actual
+  end
+
   def test_list_handles_query_with_limit
     assert_equal User.all.limit(5),
                  @subject.list(limit: 5)

@@ -18,7 +18,7 @@ module Hai
 
         def define_read_method(query_type, model)
           query_type.define_method("read_#{model.name.downcase}") do |**args|
-            Hai::Read.new(model).read(args.transform_values(&:to_h))
+            Hai::Read.new(model, context).read(args.transform_values(&:to_h))
           end
         end
       end

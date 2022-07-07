@@ -2,7 +2,7 @@
 
 require "test_helper"
 
-class TestYasashii < Minitest::Test
+class TestHai < Minitest::Test
   def test_that_it_has_a_version_number
     refute_nil ::Hai::VERSION
   end

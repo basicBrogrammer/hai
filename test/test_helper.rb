@@ -18,7 +18,7 @@ FactoryBot.find_definitions
 
 ActiveRecord::Base.establish_connection(
   adapter: "postgresql",
-  database: "yasashii_test",
+  database: "hai_test",
   password: "",
   host: "localhost"
 )

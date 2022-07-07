@@ -12,4 +12,10 @@ ActiveRecord::Schema.define do
     t.belongs_to :user
     t.timestamps
   end
+
+  create_table :posts, force: true do |t|
+    t.string :body
+    t.belongs_to :user
+    t.timestamps
+  end
 end

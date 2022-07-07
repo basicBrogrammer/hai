@@ -29,11 +29,16 @@
     - [/] read
     - [/] list
     - [/] relationships
+    - [] ActiveRecord::RecordNotFound ?
   - [/] create
     - [/] callback for current_user/context
+    - [] Errors
   - [/] update
     - [/] callback for policy
+    - [] Errors
   - [/] destroy
+    - [] Errors
+  - [] errors
   - [] subscriptions
 ------
 - [x] gemify

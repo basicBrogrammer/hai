@@ -16,7 +16,7 @@ module Hai
 
         def define_create_method(mutation_type, model)
           mutation_type.define_method("create_#{model.name.downcase}") do |attributes:|
-            Hai::Create.new(model).execute(**attributes.to_h)
+            Hai::Create.new(model, context).execute(**attributes.to_h)
           end
         end
       end

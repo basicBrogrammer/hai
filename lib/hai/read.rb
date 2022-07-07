@@ -19,17 +19,12 @@ module Hai
 
     # return nil or model
     def read(query_hash)
-      model.find_by(build_query(query_hash[:filter])).tap do |record|
+      build_filter(query_hash).first.tap do |record|
         raise UnauthorizedError if record.respond_to?(:check_hai_policy) && !record.check_hai_policy(:read, context)
       end
     end
 
     private
-
-    # TODO: prolly can remove this
-    def select_manager
-      @select_manager ||= Arel::SelectManager.new(table)
-    end
 
     def reflections
       @reflections ||= model.reflections.symbolize_keys
@@ -48,23 +43,27 @@ module Hai
       end.compact
     end
 
+    def build_joins(filter_hash)
+      reflections.map do |ref, _|
+        ref if filter_hash.keys.concat((filter_hash[:or] || []).flat_map(&:keys).uniq).include?(ref)
+      end
+    end
+
     def build_filter(filter_hash)
       return model.all unless filter_hash.present?
 
+      joins = build_joins(filter_hash)
       reflection_queries = build_reflection_queries(filter_hash)
+      or_branch = filter_hash.delete(:or)
       # build_reflection_queries mutates the filter_hash
-      query = filter_hash.present? ? model.where(build_query(filter_hash)) : model.all
+      query = filter_hash.present? ? model.where(where_clause(model.arel_table, filter_hash)) : model.all
 
-      reflection_queries.each do |ref, q|
-        query = query.joins(ref).merge(q)
+      joins.compact.each do |ref|
+        query = query.left_joins(ref)
       end
-
-      query
-    end
-
-    def build_query(query_hash)
-      or_branch = query_hash.delete(:or)
-      query = where_clause(model.arel_table, query_hash)
+      reflection_queries.each do |_ref, q|
+        query = query.merge(q)
+      end
 
       return query unless or_branch
 
@@ -73,7 +72,7 @@ module Hai
 
     def add_sub_query(query, or_branch)
       or_branch.each do |q|
-        query = query.or(where_clause(model.arel_table, q))
+        query = query.or(build_filter(q))
       end
       query
     end
@@ -88,19 +87,5 @@ module Hai
         end
       end
     end
-
-    def limit; end
-
-    def offset; end
-
-    def having; end
-
-    def group; end
-
-    def order; end
-
-    def select; end
-
-    def distinct; end
   end
 end
