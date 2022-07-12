@@ -3,7 +3,7 @@ require "hai/read"
 
 class HaiReadTest < Minitest::Test
   def setup
-    @users = create_list(:user, 10)
+    @users = create_list(:user, 10, created_at: rand(1..10).weeks.ago)
     @ride, = create_list(:ride, 2, user: @users.first)
     @other_user_ride = create(:ride, user: @users.second)
     @subject = Hai::Read.new(User, nil)
@@ -73,5 +73,12 @@ class HaiReadTest < Minitest::Test
     assert_equal [@users.second],
                  @subject.list(filter: { rides: { title: { eq: @other_user_ride.title } } })
     assert_equal [], @subject.list(filter: { rides: { title: { eq: "RideNineAndThreeQuarters" } } })
+  end
+
+  def test_list_handles_sorting
+    assert_equal User.order(created_at: :desc),
+                 @subject.list(sort: { order: "DESC", field: "created_at" })
+    assert_equal User.order(created_at: :asc),
+                 @subject.list(sort: { order: "ASC", field: "created_at" })
   end
 end

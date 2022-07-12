@@ -12,6 +12,9 @@ module Hai
     # return [] or ActiveRecord::Relationship
     def list(query_hash)
       query = build_filter(query_hash.delete(:filter))
+      if query_hash[:sort]
+        query = query.order({ query_hash.fetch(:sort).fetch(:field) => query_hash.fetch(:sort).fetch(:order) })
+      end
       query = query.limit(query_hash[:limit]) if query_hash[:limit]
       query = query.offset(query_hash[:offset]) if query_hash[:offset]
       query
