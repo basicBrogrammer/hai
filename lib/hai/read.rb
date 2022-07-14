@@ -10,14 +10,13 @@ module Hai
     end
 
     # return [] or ActiveRecord::Relationship
-    def list(query_hash)
-      query = build_filter(query_hash.delete(:filter))
-      if query_hash[:sort]
-        query = query.order({ query_hash.fetch(:sort).fetch(:field) => query_hash.fetch(:sort).fetch(:order) })
-      end
-      query = query.limit(query_hash[:limit]) if query_hash[:limit]
-      query = query.offset(query_hash[:offset]) if query_hash[:offset]
-      query
+    def list(filter: nil, limit: nil, offset: nil, sort: nil, **extra)
+      context[:arguments] = extra
+      query = build_filter(filter)
+      query = query.order({ sort.fetch(:field) => sort.fetch(:order) }) if sort
+      query = query.limit(limit) if limit
+      query = query.offset(offset) if offset
+      run_action_modification(query)
     end
 
     # return nil or model
@@ -28,6 +27,14 @@ module Hai
     end
 
     private
+
+    def run_action_modification(query)
+      if model.const_defined?("Actions") && model::Actions.respond_to?(:list)
+        model::Actions.list(query, context)
+      else
+        query
+      end
+    end
 
     def reflections
       @reflections ||= model.reflections.symbolize_keys

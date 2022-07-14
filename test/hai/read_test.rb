@@ -6,7 +6,7 @@ class HaiReadTest < Minitest::Test
     @users = create_list(:user, 10, created_at: rand(1..10).weeks.ago)
     @ride, = create_list(:ride, 2, user: @users.first)
     @other_user_ride = create(:ride, user: @users.second)
-    @subject = Hai::Read.new(User, nil)
+    @subject = Hai::Read.new(User, {})
   end
 
   def test_read_finds_a_single_record

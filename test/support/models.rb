@@ -5,8 +5,10 @@ class User < ActiveRecord::Base
   has_many :rides
   has_many :posts
 
-  action(:create) do |user, context|
-    user.admin = context == 1
+  module Actions
+    def self.create(user, context)
+      user.admin = context == 1
+    end
   end
 end
 
