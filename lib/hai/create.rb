@@ -9,9 +9,20 @@ module Hai
 
     def execute(**attrs)
       instance = model.new(**attrs)
-      instance.run_action_modification(:create, context) if instance.respond_to?(:run_action_modification)
-      instance.save
-      instance
+      run_action_modification(instance)
+      if instance.save
+        { errors: [], result: instance }
+      else
+        { errors: instance.errors.map(&:full_message), result: nil }
+      end
+    end
+
+    def run_action_modification(instance)
+      if model.const_defined?("Actions") && model::Actions.respond_to?(:create)
+        model::Actions.create(instance, context)
+      else
+        instance
+      end
     end
   end
 end
