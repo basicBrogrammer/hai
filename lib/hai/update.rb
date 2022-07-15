@@ -10,10 +10,18 @@ module Hai
 
     def execute(id:, attributes:)
       record = model.find(id)
-      raise UnauthorizedError if record.respond_to?(:check_hai_policy) && !record.check_hai_policy(:update, context)
+      if record.respond_to?(:check_hai_policy) && !record.check_hai_policy(
+        :update, context
+      )
+        return { errors: ["UnauthorizedError"],
+                 result: nil }
+      end
 
-      record.update(**attributes)
-      record
+      if record.update(**attributes)
+        { errors: [], result: record }
+      else
+        { errors: record.errors.map(&:full_message), result: nil }
+      end
     end
   end
 end
