@@ -14,7 +14,7 @@ module Hai
           klass.send(:graphql_name, "Create#{model}")
           klass.description("Attributes for creating or updating a #{model}.")
           model.attribute_types.each do |attr, type|
-            next if %w[id created_at updated_at].include?(attr)
+            next if %w[created_at updated_at].include?(attr)
 
             klass.argument(attr, Hai::GraphQL::TYPE_CAST[type.class], required: false)
           end

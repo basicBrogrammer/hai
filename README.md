@@ -1,8 +1,13 @@
 # Hai
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/hai`. To experiment with that code, run `bin/console` for an interactive prompt.
+The easist way to create a CRUD GraphQL api with ruby.
+Heavily inspired by [Ash Elixir](https://www.ash-elixir.org/)
 
-TODO: Delete this and the text above, and describe your gem
+ALPHA Warning: Hai is being used in production for my personal application
+right now, but it may not be completed suited for your application.
+
+That being said, feedback is welcome and appreciated. So, please try it out
+just be aware that the API is evolving currently and may not be stable.
 
 ## Installation
 
@@ -24,16 +29,31 @@ Or install it yourself as:
 
 TODO: Write usage instructions here
 
+1. TODO: how to do Query
+2. TODO: how to do Mutation
+3. Profit: \$\$\$
+4. TODO: how to add Action Modification
+5. TODO: how to add Policy
+
+
 ## Development
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+After checking out the repo, run `bin/setup` to install dependencies. Then, run
+`rake test` to run the tests. You can also run `bin/console` for an interactive
+prompt that will allow you to experiment.
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+To install this gem onto your local machine, run `bundle exec rake install`. To
+release a new version, update the version number in `version.rb`, and then run
+`bundle exec rake release`, which will create a git tag for the version, push
+git commits and the created tag, and push the `.gem` file to
+[rubygems.org](https://rubygems.org).
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/hai.
+Bug reports and pull requests are welcome on GitHub at
+https://github.com/[USERNAME]/hai.
 
 ## License
 
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+The gem is available as open source under the terms of the [MIT
+License](https://opensource.org/licenses/MIT).
