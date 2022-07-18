@@ -73,7 +73,6 @@ PLATFORMS
 DEPENDENCIES
   activesupport (~> 7.0)
   factory_bot
-  graphql
   hai!
   minitest (~> 5.0)
   pry

@@ -4,18 +4,20 @@ require "hai/create"
 class HaiCreateTest < Minitest::Test
   def test_creates_a_new_record
     original_count = User.count
-    expected = Hai::Create.new(User, nil).execute(name: "bobby")
-    assert_nil expected[:error]
+    name = "Bobby #{SecureRandom.hex}"
+    expected = Hai::Create.new(User, nil).execute(name: name)
+    assert_empty expected[:errors]
     result = expected[:result]
     assert_equal original_count + 1, User.count
-    assert_equal result.name, "bobby"
+    assert_equal name, result.name
   end
 
   def test_allows_for_action_modification_before_save
-    expected = Hai::Create.new(User, 1).execute(name: "bobby")
-    assert expected[:errors].empty?
+    name = "Bobby #{SecureRandom.hex}"
+    expected = Hai::Create.new(User, 1).execute(name: name)
+    assert_empty expected[:errors]
     result = expected[:result]
-    assert_equal "bobby", result.name
+    assert_equal name, result.name
     assert result.admin?
 
     expected = Hai::Create.new(User, 2).execute(name: "tommy")

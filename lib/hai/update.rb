@@ -1,6 +1,5 @@
 module Hai
   class Update
-    class UnauthorizedError < StandardError; end
     attr_reader :model, :context
 
     def initialize(model, context)
@@ -10,17 +9,26 @@ module Hai
 
     def execute(id:, attributes:)
       record = model.find(id)
-      if record.respond_to?(:check_hai_policy) && !record.check_hai_policy(
-        :update, context
-      )
-        return { errors: ["UnauthorizedError"],
-                 result: nil }
-      end
+      return unauthorized_error unless check_policy(record)
 
       if record.update(**attributes)
         { errors: [], result: record }
       else
         { errors: record.errors.map(&:full_message), result: nil }
+      end
+    end
+
+    private
+
+    def unauthorized_error
+      { errors: ["UnauthorizedError"], result: nil }
+    end
+
+    def check_policy(instance)
+      if model.const_defined?("Policies") && model::Policies.respond_to?(:update)
+        model::Policies.update(instance, context)
+      else
+        true
       end
     end
   end
