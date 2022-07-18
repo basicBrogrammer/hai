@@ -10,8 +10,8 @@ class HaiReadTest < Minitest::Test
   end
 
   def test_read_finds_a_single_record
-    assert_equal @users.first, @subject.read(filter: { id: { eq: @users.first.id } })
-    assert_nil @subject.read(filter: { id: { eq: User.last.id + 1 } })
+    assert_equal @users.first, @subject.read(id: { eq: @users.first.id })
+    assert_nil @subject.read(id: { eq: User.last.id + 1 })
   end
 
   def test_list_basic_query
@@ -32,6 +32,17 @@ class HaiReadTest < Minitest::Test
                              name: { eq: @users.third.name },
                              or: [
                                { rides: { title: { eq: @ride.title } } }
+                             ]
+                           })
+    assert_equal expected, actual
+  end
+
+  def test_list_handles_only_or_queries
+    expected = [@users.first, @users.third]
+    actual = @subject.list(filter: {
+                             or: [
+                               { rides: { title: { eq: @ride.title } } },
+                               { name: { eq: @users.third.name } }
                              ]
                            })
     assert_equal expected, actual
