@@ -1,0 +1,2 @@
+namespace :hai do
+end

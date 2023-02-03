@@ -5,7 +5,8 @@ require "hai/types/arel/datetime_input_type"
 module Hai
   module GraphQL
     module Types
-      module Arel; end
+      module Arel
+      end
       ALLOWED_TYPES = ::GraphQL::Types.constants - %i[Relay JSON]
 
       def self.included(base)
@@ -26,7 +27,12 @@ module Hai
           end
 
           filter_types.each do |filter_type|
-            filter_type.send(:argument, :or, "[#{filter_type}]", required: false)
+            filter_type.send(
+              :argument,
+              :or,
+              "[#{filter_type}]",
+              required: false
+            )
           end
         end
 
@@ -49,9 +55,17 @@ module Hai
 
         def add_base_type_reflections(name, ref)
           if name == ref.plural_name
-            name_for_base_type(ref.active_record).constantize.send(:field, name, "[#{name_for_base_type(ref.klass)}]")
+            name_for_base_type(ref.active_record).constantize.send(
+              :field,
+              name,
+              "[#{name_for_base_type(ref.klass)}]"
+            )
           else
-            name_for_base_type(ref.active_record).constantize.send(:field, name, name_for_base_type(ref.klass))
+            name_for_base_type(ref.active_record).constantize.send(
+              :field,
+              name,
+              name_for_base_type(ref.klass)
+            )
           end
         rescue NoMethodError => e
           binding.pry
@@ -64,7 +78,11 @@ module Hai
           model.attribute_types.each do |attr, type|
             next if %w[id created_at updated_at].include?(attr)
 
-            klass.argument(attr, Hai::GraphQL::TYPE_CAST[type.class], required: false)
+            klass.argument(
+              attr,
+              Hai::GraphQL::TYPE_CAST[type.class],
+              required: false
+            )
           end
           ::Types.const_set "#{model}Attributes", klass
         end
@@ -77,15 +95,25 @@ module Hai
           # Class Filter
           filter_klass = Class.new(::GraphQL::Schema::InputObject)
           model.attribute_types.each do |attr, type|
-            filter_klass.send(:argument, attr, AREL_TYPE_CAST[type.class], required: false)
+            filter_klass.send(
+              :argument,
+              attr,
+              AREL_TYPE_CAST[type.class] ||
+                AREL_TYPE_CAST[type.class.superclass],
+              required: false
+            )
           end
 
           Object.const_set name_for_filter_type(model), filter_klass
         end
 
         def add_filter_type_reflections(name, ref)
-          name_for_filter_type(ref.active_record).constantize.send(:argument, name, name_for_filter_type(ref.klass),
-                                                                   required: false)
+          name_for_filter_type(ref.active_record).constantize.send(
+            :argument,
+            name,
+            name_for_filter_type(ref.klass),
+            required: false
+          )
         rescue NoMethodError, RuntimeError => e
           binding.pry
         end

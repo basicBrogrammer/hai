@@ -8,10 +8,18 @@ module Hai
         end
 
         def add_field(query_type, model)
-          query_type.field("read_#{model.name.downcase}", "Types::#{model}Type".constantize) do
+          query_type.field(
+            "read_#{model.name.downcase}",
+            "Types::#{model}Type".constantize
+          ) do
             query_type.description("List a single #{model}.")
             model.attribute_types.each do |attr, type|
-              argument(attr, Hai::GraphQL::AREL_TYPE_CAST[type.class], required: false)
+              argument(
+                attr,
+                Hai::GraphQL::AREL_TYPE_CAST[type.class] ||
+                  Hai::GraphQL::Types::Arel::IntInputType,
+                required: false
+              )
             end
           end
         end

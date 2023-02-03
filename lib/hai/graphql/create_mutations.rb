@@ -14,9 +14,14 @@ module Hai
           klass.send(:graphql_name, "Create#{model}")
           klass.description("Attributes for creating or updating a #{model}.")
           model.attribute_types.each do |attr, type|
-            next if %w[created_at updated_at].include?(attr)
+            next if %w[id created_at updated_at].include?(attr)
 
-            klass.argument(attr, Hai::GraphQL::TYPE_CAST[type.class], required: false)
+            klass.argument(
+              attr,
+              Hai::GraphQL::TYPE_CAST[type.class] ||
+                Hai::GraphQL::TYPE_CAST[type.class.superclass],
+              required: false
+            )
           end
 
           klass.field(:result, ::Types.const_get("#{model}Type"))
@@ -28,8 +33,10 @@ module Hai
         end
 
         def add_field(mutation_type, model)
-          mutation_type.field("create_#{model.name.downcase}",
-                              mutation: Hai::GraphQL::Types.const_get("Create#{model}"))
+          mutation_type.field(
+            "create_#{model.name.downcase}",
+            mutation: Hai::GraphQL::Types.const_get("Create#{model}")
+          )
         end
       end
     end

@@ -15,8 +15,9 @@ require_relative "hai/delete"
 
 require_relative "hai/policies"
 require_relative "hai/action_mods"
+require "hai/railtie" if defined?(Rails)
 
 module Hai
-  class Error < StandardError; end
-  # Your code goes here...
+  class Error < StandardError
+  end
 end

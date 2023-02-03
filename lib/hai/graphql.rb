@@ -16,14 +16,16 @@ module Hai
       ActiveModel::Type::Float => ::GraphQL::Types::Float,
       ActiveModel::Type::String => ::GraphQL::Types::String,
       ActiveModel::Type::Boolean => ::GraphQL::Types::Boolean,
-      ActiveRecord::AttributeMethods::TimeZoneConversion::TimeZoneConverter => ::GraphQL::Types::ISO8601DateTime
+      ActiveRecord::AttributeMethods::TimeZoneConversion::TimeZoneConverter =>
+        ::GraphQL::Types::ISO8601DateTime
     }.freeze
     AREL_TYPE_CAST = {
       ActiveModel::Type::Integer => Hai::GraphQL::Types::Arel::IntInputType,
       ActiveModel::Type::Float => Hai::GraphQL::Types::Arel::FloatInputType,
       ActiveModel::Type::String => Hai::GraphQL::Types::Arel::StringInputType,
       ActiveModel::Type::Boolean => Hai::GraphQL::Types::Arel::BooleanInputType,
-      ActiveRecord::AttributeMethods::TimeZoneConversion::TimeZoneConverter => Hai::GraphQL::Types::Arel::DateTimeInputType
+      ActiveRecord::AttributeMethods::TimeZoneConversion::TimeZoneConverter =>
+        Hai::GraphQL::Types::Arel::DateTimeInputType
     }.freeze
 
     def self.included(base)
