@@ -5,6 +5,7 @@ module Hai
     def initialize(model, context)
       @model = model
       @context = context
+      @context[:model] = model
     end
 
     def execute(**attrs)
