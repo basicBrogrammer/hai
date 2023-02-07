@@ -54,7 +54,7 @@ module Hai
     private
 
     def context
-      super || {}
+      try(:super) || {}
     end
 
     def model_class
