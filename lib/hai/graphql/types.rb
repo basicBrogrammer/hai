@@ -80,7 +80,7 @@ module Hai
 
             klass.argument(
               attr,
-              Hai::GraphQL::TYPE_CAST[type.class],
+              Hai::GraphQL::TYPE_CAST[type.class]|| Hai::GraphQL::TYPE_CAST[type.class.superclass],
               required: false
             )
           end

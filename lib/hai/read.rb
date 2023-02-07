@@ -34,7 +34,7 @@ module Hai
 
     private
 
-    def check_read_policy
+    def check_read_policy(context)
       if model.const_defined?("Policies") && model::Policies.respond_to?(:read)
         model::Policies.read(context)
       else
@@ -42,7 +42,7 @@ module Hai
       end
     end
 
-    def check_list_policy
+    def check_list_policy(context)
       if model.const_defined?("Policies") && model::Policies.respond_to?(:list)
         model::Policies.list(context)
       else

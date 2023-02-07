@@ -15,6 +15,7 @@ module Hai
       ActiveModel::Type::Integer => ::GraphQL::Types::Int,
       ActiveModel::Type::Float => ::GraphQL::Types::Float,
       ActiveModel::Type::String => ::GraphQL::Types::String,
+      ActiveRecord::Type::Text => ::GraphQL::Types::String,
       ActiveModel::Type::Boolean => ::GraphQL::Types::Boolean,
       ActiveRecord::AttributeMethods::TimeZoneConversion::TimeZoneConverter =>
         ::GraphQL::Types::ISO8601DateTime
@@ -23,6 +24,7 @@ module Hai
       ActiveModel::Type::Integer => Hai::GraphQL::Types::Arel::IntInputType,
       ActiveModel::Type::Float => Hai::GraphQL::Types::Arel::FloatInputType,
       ActiveModel::Type::String => Hai::GraphQL::Types::Arel::StringInputType,
+      ActiveRecord::Type::Text => Hai::GraphQL::Types::Arel::StringInputType,
       ActiveModel::Type::Boolean => Hai::GraphQL::Types::Arel::BooleanInputType,
       ActiveRecord::AttributeMethods::TimeZoneConversion::TimeZoneConverter =>
         Hai::GraphQL::Types::Arel::DateTimeInputType
@@ -33,15 +35,19 @@ module Hai
     end
 
     module ClassMethods
-      def hai_query(model)
-        Hai::GraphQL::ReadQueries.add(self, model)
-        Hai::GraphQL::ListQueries.add(self, model)
+      def hai_query(*models)
+        models.each do |model|
+          Hai::GraphQL::ReadQueries.add(self, model)
+          Hai::GraphQL::ListQueries.add(self, model)
+        end
       end
 
-      def hai_mutation(model)
-        Hai::GraphQL::CreateMutations.add(self, model)
-        Hai::GraphQL::UpdateMutations.add(self, model)
-        Hai::GraphQL::DeleteMutations.add(self, model)
+      def hai_mutation(*models)
+        models.each do |model|
+          Hai::GraphQL::CreateMutations.add(self, model)
+          Hai::GraphQL::UpdateMutations.add(self, model)
+          Hai::GraphQL::DeleteMutations.add(self, model)
+        end
       end
     end
   end
