@@ -53,6 +53,10 @@ module Hai
 
     private
 
+    def context
+      super || {}
+    end
+
     def model_class
       params[:model].classify.constantize
     end

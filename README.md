@@ -21,7 +21,8 @@ And then execute:
 
 Hai is a resource based api and those resources are ActiveRecord models. Keeping with this first principle, let's see how it can be used in your Ruby application.
 
-## Action Modifications
+<details>
+<summary>Action Modifications </summary>
 
 If you want to modify any of the actions, you can add a Actions module to the
 model that you want to modify.
@@ -49,7 +50,10 @@ class Post < ApplicationRecord
   end
 end
 ```
-## Policies
+</details>
+
+<details>
+<summary> Policies</summary>
 Policies are handled in the same manner of Action Modifications. We will use the `Policies` module in the model to handle things like authorization.
 
 ```ruby
@@ -84,8 +88,10 @@ class Post < ApplicationRecord
   end
 end
 ```
+</details>
 
-## Graphql
+<details>
+<summary>Graphql</summary>
 
 Hai Graphql depends on `graphql-ruby` so if you don't have that installed and
 boostrapped, head over to [ their repo and do that now ](https://github.com/rmosolgo/graphql-ruby#installation).
@@ -128,8 +134,11 @@ module Types
   end
 end
 ```
+</details>
 
-## Rest
+<details>
+
+<summary>Rest</summary>
 
 This is even easier than adding Hai Graphql. Hai Rest is a dynamic engine that can be mounted with any namespace. You just have to mount it in your routes file like this:
 
@@ -191,6 +200,9 @@ Or all things combined
 
 #### Delete a user
 `DELETE <base_url>/rest/users/1`
+
+</details>
+
 
 ## Development
 
