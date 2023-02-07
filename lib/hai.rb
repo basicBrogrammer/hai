@@ -20,4 +20,9 @@ require "hai/railtie" if defined?(Rails)
 module Hai
   class Error < StandardError
   end
+  class Rest
+    class Engine < ::Rails::Engine
+      isolate_namespace Hai
+    end
+  end
 end

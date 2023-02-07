@@ -13,7 +13,6 @@ module Hai
           query_type.field "list_#{model.name.pluralize.downcase}",
                            ["Types::#{model}Type".constantize] do
             query_type.description "List of #{model}."
-            binding.pry
             argument :filter,
                      "#{model}FilterInputType".constantize,
                      required: false

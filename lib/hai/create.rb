@@ -31,7 +31,8 @@ module Hai
     end
 
     def check_policy(instance)
-      if model.const_defined?("Policies") && model::Policies.respond_to?(:create)
+      if model.const_defined?("Policies") &&
+           model::Policies.respond_to?(:create)
         model::Policies.create(instance, context)
       else
         true
