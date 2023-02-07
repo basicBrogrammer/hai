@@ -6,6 +6,8 @@ module Hai
                Hai::Read
                  .new(model_class, context)
                  .list(
+                   # TODO: this is a security risk, thanks co-pilot
+                   # potenntial use attributes types plus AREL_TYPE_CAST
                    filter: params[:filter]&.to_unsafe_h,
                    limit: params[:limit],
                    offset: params[:offset],
