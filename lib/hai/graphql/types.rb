@@ -45,7 +45,7 @@ module Hai
 
           klass = Class.new(::Types::BaseObject)
           model.attribute_types.each do |attr, type|
-            klass.send(:field, attr, Hai::GraphQL::TYPE_CAST[type.class])
+            klass.send(:field, attr, Hai::GraphQL::TYPE_CAST[type.class] || Hai::GraphQL::TYPE_CAST[type.class.superclass])
           rescue ArgumentError => e
             binding.pry
           end
