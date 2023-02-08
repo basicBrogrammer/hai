@@ -16,7 +16,7 @@ module Hai
           model.attribute_types.each do |attr, type|
             next if %w[id created_at updated_at].include?(attr)
 
-            presence_validators = get_precense_validators(model)
+            presence_validators = get_presence_validators(model)
 
             klass.argument(
               attr,
@@ -43,7 +43,7 @@ module Hai
 
         private
 
-        def get_precense_validators(model)
+        def get_presence_validators(model)
           model.validators.select do |v|
           v.kind == :presence
           end
