@@ -14,7 +14,7 @@ module Hai
 
       return unauthorized_error unless check_policy(instance)
 
-      instance.assign_attributes(**attrs)
+      instance.assign_attributes(**attrs) unless attrs.empty?
 
       run_action_modification(instance)
 
