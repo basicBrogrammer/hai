@@ -15,6 +15,7 @@ module Hai
           klass.description("Attributes for creating or updating a #{model}.")
           model.attribute_types.each do |attr, type|
             next if %w[id created_at updated_at].include?(attr)
+            next if attr.blank? # if the model has no other attributes
 
             klass.argument(
               attr,
@@ -26,7 +27,7 @@ module Hai
 
           klass.field(:result, ::Types.const_get("#{model}Type"))
 
-          klass.define_method(:resolve) do |args|
+          klass.define_method(:resolve) do |args = {}|
             Hai::Create.new(model, context).execute(**args)
           end
           Hai::GraphQL::Types.const_set("Create#{model}", klass)
