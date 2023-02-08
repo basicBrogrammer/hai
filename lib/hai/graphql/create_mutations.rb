@@ -17,11 +17,13 @@ module Hai
             next if %w[id created_at updated_at].include?(attr)
             next if attr.blank? # if the model has no other attributes
 
+            presence_validators = get_presence_validators(model)
+
             klass.argument(
               attr,
               Hai::GraphQL::TYPE_CAST[type.class] ||
                 Hai::GraphQL::TYPE_CAST[type.class.superclass],
-              required: false
+              required: presence_validators.include?(attr),
             )
           end
 
@@ -39,7 +41,18 @@ module Hai
             mutation: Hai::GraphQL::Types.const_get("Create#{model}")
           )
         end
+
+        private
+
+        def get_presence_validators(model)
+          model.validators.select do |v|
+          v.kind == :presence
+          end
+          .flat_map(&:attributes)
+          .map(&:to_s)
+        end
       end
     end
   end
 end
+
