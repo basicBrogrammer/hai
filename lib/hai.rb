@@ -12,6 +12,7 @@ require_relative "hai/read"
 require_relative "hai/create"
 require_relative "hai/update"
 require_relative "hai/delete"
+require_relative "hai/restricted_attributes"
 
 require_relative "hai/policies"
 require_relative "hai/action_mods"

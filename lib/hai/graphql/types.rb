@@ -45,6 +45,7 @@ module Hai
 
           klass = Class.new(::Types::BaseObject)
           model.attribute_types.each do |attr, type|
+            next if defined?(model.get_restricted_attributes) && model.get_restricted_attributes.include?(attr.to_sym) # add test plz
             klass.send(:field, attr, Hai::GraphQL::TYPE_CAST[type.class] || Hai::GraphQL::TYPE_CAST[type.class.superclass])
           rescue ArgumentError => e
             binding.pry
