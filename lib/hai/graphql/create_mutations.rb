@@ -16,11 +16,13 @@ module Hai
           model.attribute_types.each do |attr, type|
             next if %w[id created_at updated_at].include?(attr)
 
+            presence_validators = get_precense_validators(model)
+
             klass.argument(
               attr,
               Hai::GraphQL::TYPE_CAST[type.class] ||
                 Hai::GraphQL::TYPE_CAST[type.class.superclass],
-              required: false
+              required: presence_validators.include?(attr),
             )
           end
 
@@ -38,7 +40,18 @@ module Hai
             mutation: Hai::GraphQL::Types.const_get("Create#{model}")
           )
         end
+
+        private
+
+        def get_precense_validators(model)
+          model.validators.select do |v|
+          v.kind == :presence
+          end
+          .flat_map(&:attributes)
+          .map(&:to_s)
+        end
       end
     end
   end
 end
+
