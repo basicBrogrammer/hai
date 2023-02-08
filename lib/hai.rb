@@ -18,6 +18,7 @@ require_relative "hai/policies"
 require_relative "hai/action_mods"
 require "hai/railtie" if defined?(Rails)
 require "generators/rest/install_generator" if defined?(Rails)
+require "generators/install/graphql_generator" if defined?(Rails)
 
 module Hai
   class Error < StandardError
