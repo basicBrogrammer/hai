@@ -16,9 +16,13 @@ require_relative "hai/restricted_attributes"
 
 require_relative "hai/policies"
 require_relative "hai/action_mods"
-require "hai/railtie" if defined?(Rails)
-require "generators/rest/install_generator" if defined?(Rails)
-require "generators/install/graphql_generator" if defined?(Rails)
+
+if defined?(Rails)
+  require "hai/railtie"
+  require "generators/install/rest_generator"
+  require "generators/install/graphql_generator"
+  require "generators/install/all_generator"
+end
 
 module Hai
   class Error < StandardError
