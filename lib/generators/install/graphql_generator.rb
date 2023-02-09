@@ -4,19 +4,26 @@ require 'rails/generators/base'
 module Hai
   module Install
     class GraphqlGenerator < Rails::Generators::Base
+      class_option :nullify_session, type: :boolean, default: false
+
       def rails_preload
         Rails.application.eager_load!
       end
 
       def install_graphql_ruby
-        gem 'graphql'
+        generate "graphql:install"
         run "bundle install"
-        run "rails generate graphql:install"
+      end
+
+      def nullify_session
+        if options[:nullify_session]
+          gsub_file 'app/controllers/graphql_controller.rb', '# protect_from_forgery with: :null_session', 'protect_from_forgery with: :null_session'
+        end
       end
 
       def add_types
         hai_types = "hay_types(#{model_names.join(', ')})"
-        inject_into_file "app/graphql/#{app_name.underscore}_schema.rb", after: "class #{app_name}Schema < GraphQL::Schema" do <<~RUBY.indent(4)
+        inject_into_file "app/graphql/#{app_name.underscore}_schema.rb", after: "class #{app_name}Schema < GraphQL::Schema" do <<~RUBY.indent(2)
 
           include Hai::GraphQL::Types
           hai_types(#{model_names.join(', ')})
