@@ -17,6 +17,14 @@ And then execute:
 
     $ bundle install
 
+An installation script can be used to add both REST and GraphQL to your application
+
+```
+rails generate hai:install:all
+```
+
+For more customization over the installation process, see the sections for GraphQL and REST.
+
 ## Usage
 
 Hai is a resource based api and those resources are ActiveRecord models. Keeping with this first principle, let's see how it can be used in your Ruby application.
@@ -93,6 +101,28 @@ end
 <details>
 <summary>Graphql</summary>
 
+### Quick Install
+
+To quickly add GraphQL to your application run the installation script
+
+```
+rails generate hai:install:graphql
+```
+
+This runs the install script provided by [graphql-ruby](https://github.com/rmosolgo/graphql-ruby#installation) before adding the code to load Hai.
+
+The installation script parses the models already created in your application and adds them to the graphql schema.  Two queries and three mutations are created for each model that allow you to create, read, update and delete.
+
+#### Options
+
+```
+--nullifiy_session
+```
+
+Using `nullify_session` as an option to the installer allows for outside access to the graphql controler while preventing CSRF attacks.
+
+### Custom Install
+
 Hai Graphql depends on `graphql-ruby` so if you don't have that installed and
 boostrapped, head over to [ their repo and do that now ](https://github.com/rmosolgo/graphql-ruby#installation).
 
@@ -140,7 +170,13 @@ end
 
 <summary>Rest</summary>
 
-This is even easier than adding Hai Graphql. Hai Rest is a dynamic engine that can be mounted with any namespace. You just have to mount it in your routes file like this:
+To quickly mount Hai to create REST endpoints for your models run the install script
+
+```
+rails generate hai:install:rest
+```
+
+This mounts the Hai Rest engine in your  routes file like this:
 
 ```ruby
 Rails.application.routes.draw do
