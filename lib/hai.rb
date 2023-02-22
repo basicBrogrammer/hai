@@ -19,17 +19,11 @@ require_relative "hai/action_mods"
 
 if defined?(Rails)
   require "hai/railtie"
-  require "generators/install/rest_generator"
   require "generators/install/graphql_generator"
   require "generators/install/all_generator"
 end
 
 module Hai
   class Error < StandardError
-  end
-  module Rest
-    class Engine < ::Rails::Engine
-      isolate_namespace Hai
-    end
   end
 end
