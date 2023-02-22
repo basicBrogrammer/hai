@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
 require_relative "lib/hai/version"
+version = File.read(File.expand_path("../VERSION", __dir__)).strip
 
 Gem::Specification.new do |spec|
   spec.name = "hai"
-  spec.version = Hai::VERSION
+  spec.version = version
   spec.authors = ["basicbrogrammer"]
   spec.email = ["basicbrogrammer@pm.me"]
 
